@@ -5,6 +5,11 @@ const readFile = (filePath) => {
   return allFileContents.split(/\r?\n/).filter((line) => line);
 };
 
+const sumArray = (array) => {
+  return array.reduce((acc, curr) => acc + curr, 0);
+};
+
 module.exports = {
   readFile,
+  sumArray,
 };

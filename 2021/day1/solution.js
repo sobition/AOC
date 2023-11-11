@@ -1,12 +1,6 @@
-const readFile = require("../util").readFile;
+const readFile = require("../../util").readFile;
+const sumArray = require("../../util").sumArray;
 
-// const readFile = (filePath) => {
-//   const allFileContents = fs.readFileSync(filePath, "utf-8");
-//   return allFileContents
-//     .split(/\r?\n/)
-//     .filter((line) => line)
-//     .map((line) => parseInt(line));
-// };
 const part1 = () => {
   const lines = readFile("./test.txt").map((line) => parseInt(line));
   let increments = [];
@@ -25,7 +19,7 @@ const part2 = () => {
 
   for (let i = 0; i < lines.length; i++) {
     const chunks = lines.slice(i, i + 3);
-    sumsList.push(chunks.reduce((a, b) => a + b, 0));
+    sumsList.push(sumArray(chunks));
   }
 
   let increments = [];
@@ -34,7 +28,7 @@ const part2 = () => {
       increments.push(sumsList[i + 1]);
     }
   }
-  console.log("sumsList", increments.length);
+  console.log("part2: ", increments.length);
 };
 part1();
 part2();
