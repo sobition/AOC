@@ -1,5 +1,4 @@
-const readFile = require("../../util").readFile;
-const sumArray = require("../../util").sumArray;
+const { readFile, sumArray, timeIt } = require("../../util");
 
 const part1 = () => {
   const lines = readFile("./test.txt").map((line) => parseInt(line));
@@ -30,5 +29,5 @@ const part2 = () => {
   }
   console.log("part2: ", increments.length);
 };
-part1();
-part2();
+timeIt(part1);
+timeIt(part2);

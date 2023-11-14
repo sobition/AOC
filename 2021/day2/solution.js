@@ -1,4 +1,5 @@
 const readFile = require("../../util").readFile;
+const timeIt = require("../../util").timeIt;
 
 const part1 = () => {
   const lines = readFile("./input.txt");
@@ -17,6 +18,8 @@ const part1 = () => {
   console.log("part1: ", position.x * position.y);
 };
 
+timeIt(part1);
+
 const part2 = () => {
   const lines = readFile("./input.txt");
   let position = { x: 0, y: 0, aim: 0 };
@@ -34,5 +37,5 @@ const part2 = () => {
   });
   console.log("part2: ", position.x * position.y);
 };
-part1();
-part2();
+timeIt(part1);
+timeIt(part2);
