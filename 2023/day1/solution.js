@@ -1,6 +1,6 @@
 const { readFile, timeIt, sumArray } = require("../../util");
 const part1 = () => {
-  const lines = readFile("./input.txt").map((line) => line);
+  const lines = readFile("./input.txt");
   const tuples = lines.map((line) => {
     const numbers = line.split("").filter((char) => !isNaN(char)); // Check if the character is a number
 
@@ -11,7 +11,7 @@ const part1 = () => {
 timeIt(part1);
 
 const part2 = () => {
-  const lines = readFile("./input.txt").map((line) => line);
+  const lines = readFile("./input.txt");
 
   const numberMap = {
     one: "1",

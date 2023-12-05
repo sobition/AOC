@@ -28,7 +28,7 @@ const parseGameInput = (input) => {
 };
 
 const part1 = () => {
-  const lines = readFile("./input.txt").map((line) => line);
+  const lines = readFile("./input.txt");
   const expected = {
     red: 12,
     green: 13,
@@ -52,7 +52,7 @@ const part1 = () => {
 timeIt(part1);
 
 const part2 = () => {
-  const lines = readFile("./input.txt").map((line) => line);
+  const lines = readFile("./input.txt");
 
   const games = lines
     .map((game) => parseGameInput(game))
