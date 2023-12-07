@@ -9,7 +9,7 @@ const part1 = () => {
     const time = times[i];
     const dist = dists[i];
 
-    let minTime = (time - Math.sqrt(time ** 2 - 4 * dist)) / 2;
+    let minTime = (time - Math.sqrt(Math.pow(time, 2) - 4 * dist)) / 2;
     minTime = Number.isInteger(minTime) ? minTime + 1 : Math.ceil(minTime);
     const nWays = time - (minTime - 1) * 2 - 1;
     sum *= nWays;
@@ -28,7 +28,7 @@ const part2 = () => {
     const time = times[i];
     const dist = dists[i];
 
-    let minTime = (time - Math.sqrt(time ** 2 - 4 * dist)) / 2;
+    let minTime = (time - Math.sqrt(Math.pow(time, 2) - 4 * dist)) / 2;
     minTime = Number.isInteger(minTime) ? minTime + 1 : Math.ceil(minTime);
     const nWays = time - (minTime - 1) * 2 - 1;
     sum *= nWays;
