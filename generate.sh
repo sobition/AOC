@@ -18,13 +18,7 @@ mkdir -p "$YEAR/$DAY_DIR"
 
 # Create files
 cat <<EOL > "$YEAR/$DAY_DIR/day$DAY.js"
-const { readFile, readColumns, timeIt } = require("../../util");
-
-// Load input (test or full)
-const loadInput = (fileName) => {
-  const filePath = path.join(__dirname, fileName);
-  return fs.readFileSync(filePath, 'utf-8');
-};
+const { readFile, timeIt } = require("../../util");
 
 // Solve Part 1
 const solvePart1 = (input) => {
@@ -41,8 +35,7 @@ const solvePart2 = (input) => {
 // Main execution
 const main = () => {
   // Change \`test.txt\` to \`input.txt\` for full input
-  const rawInput = loadInput('test.txt');
-  const input = parseInput(rawInput);
+  const input = readFile("input.txt");
 
   console.log('Part 1:', timeIt(solvePart1, input));
   console.log('Part 2:', timeIt(solvePart2, input));

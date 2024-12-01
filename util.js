@@ -1,14 +1,14 @@
-const fs = require("fs");
+const fs = require('fs');
 
 const readFile = (filePath) => {
-  const allFileContents = fs.readFileSync(filePath, "utf-8");
+  const allFileContents = fs.readFileSync(filePath, 'utf-8');
   return allFileContents.split(/\r?\n/).filter((line) => line);
 };
 
-const readColumns = (array, splitBy = "char") => {
+const readColumns = (array, splitBy = 'char') => {
   // Split rows based on the 'splitBy' parameter
   const rows = array.map((row) =>
-    splitBy === "whitespace" ? row.split(/\s+/) : row.split(""),
+    splitBy === 'whitespace' ? row.split(/\s+/) : row.split('')
   );
 
   // Initialize columns array
@@ -28,10 +28,10 @@ const sumArray = (array) => {
 };
 
 // Input Parsing Utilities
-const parseInput = (input) => input.trim().split("\n");
-const parseNumbers = (input) => input.trim().split("\n").map(Number);
+const parseInput = (input) => input.trim().split('\n');
+const parseNumbers = (input) => input.trim().split('\n').map(Number);
 const parseCommaSeparatedNumbers = (input) =>
-  input.trim().split(",").map(Number);
+  input.trim().split(',').map(Number);
 
 // Array Utilities
 const range = (start, end) =>
@@ -43,7 +43,7 @@ const getPermutations = (arr) => {
     getPermutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map((perm) => [
       val,
       ...perm,
-    ]),
+    ])
   );
 };
 
@@ -53,13 +53,13 @@ const getCombinations = (arr, length) => {
     getCombinations(arr.slice(i + 1), length - 1).map((combo) => [
       val,
       ...combo,
-    ]),
+    ])
   );
 };
 
 // String Utilities
 const countChar = (str, char) => [...str].filter((c) => c === char).length;
-const isPalindrome = (str) => str === str.split("").reverse().join("");
+const isPalindrome = (str) => str === str.split('').reverse().join('');
 
 // Graph Utilities
 const createGraph = (edges) => {
