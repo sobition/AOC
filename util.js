@@ -5,13 +5,24 @@ const readFile = (filePath) => {
   return allFileContents.split(/\r?\n/).filter((line) => line);
 };
 
-const readColumns = (array) => {
+const readColumns = (array, splitBy = "char") => {
+  // Split rows based on the 'splitBy' parameter
+  const rows = array.map((row) =>
+    splitBy === "whitespace" ? row.split(/\s+/) : row.split(""),
+  );
+
+  // Initialize columns array
   const columns = [];
-  for (let i = 0; i < array[0].length; i++) {
-    columns.push(array.map((row) => row[i]));
+  const numCols = rows[0].length;
+
+  // Extract columns
+  for (let i = 0; i < numCols; i++) {
+    columns.push(rows.map((row) => row[i]));
   }
+
   return columns;
 };
+
 const sumArray = (array) => {
   return array.reduce((acc, curr) => acc + curr, 0);
 };
