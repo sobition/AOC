@@ -1,30 +1,30 @@
-const { readFile, timeIt } = require("../../util");
+const { readFile, timeIt } = require('../../util');
 
 const part1 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
 
   const cards = [
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "T",
-    "J",
-    "Q",
-    "K",
-    "A",
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    'T',
+    'J',
+    'Q',
+    'K',
+    'A',
   ];
 
   for (let i = 0; i < lines.length; i++) {
-    let [hand, bid] = lines[i].split(" ");
-    hand = hand.split("").map((card) => cards.indexOf(card).toString(16));
+    let [hand, bid] = lines[i].split(' ');
+    hand = hand.split('').map((card) => cards.indexOf(card).toString(16));
     bid = +bid;
 
-    console.log("hand", hand);
+    console.log('hand', hand);
     const map = {};
     for (const card of hand) {
       map[card] = (map[card] ?? 0) + 1;
@@ -40,34 +40,34 @@ const part1 = () => {
   for (let i = 0; i < lines.length; i++) {
     sum += lines[i][1] * (i + 1);
   }
-  console.log("part1: ", sum);
+  console.log('part1: ', sum);
 };
 // timeIt(part1);
 
 const part2 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
   const cards = [
-    "J",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "T",
-    "Q",
-    "K",
-    "A",
+    'J',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    'T',
+    'Q',
+    'K',
+    'A',
   ];
 
   for (let i = 0; i < lines.length; i++) {
-    let [hand, bid] = lines[i].split(" ");
-    hand = hand.split("").map((card) => cards.indexOf(card).toString(16));
+    let [hand, bid] = lines[i].split(' ');
+    hand = hand.split('').map((card) => cards.indexOf(card).toString(16));
     bid = +bid;
 
-    const nJokers = hand.filter((card) => card === "0").length;
+    const nJokers = hand.filter((card) => card === '0').length;
 
     const map = {};
     for (const card of hand) {
@@ -86,7 +86,7 @@ const part2 = () => {
   for (let i = 0; i < lines.length; i++) {
     sum += lines[i][1] * (i + 1);
   }
-  console.log("part2: ", sum);
+  console.log('part2: ', sum);
 };
 
 timeIt(part2);

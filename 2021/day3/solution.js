@@ -1,4 +1,4 @@
-const { readFile, readColumns, timeIt } = require("../../util");
+const { readFile, readColumns, timeIt } = require('../../util');
 
 function findMostFrequentItem(arr) {
   const frequencyMap = arr.reduce((acc, item) => {
@@ -44,28 +44,28 @@ function findLeastFrequentItem(arr) {
 
 const getGamma = (lines) => {
   const columns = readColumns(lines);
-  let gamma = "";
+  let gamma = '';
   columns.forEach((bit) => {
-    gamma += findMostFrequentItem(bit, "gamma");
+    gamma += findMostFrequentItem(bit, 'gamma');
   });
   return gamma;
 };
 
 const getEpsoilon = (lines) => {
   const columns = readColumns(lines);
-  let epsilon = "";
+  let epsilon = '';
   columns.forEach((bit) => {
-    epsilon += findLeastFrequentItem(bit, "epsilon");
+    epsilon += findLeastFrequentItem(bit, 'epsilon');
   });
   return epsilon;
 };
 
 const part1 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
 
   const gamma = getGamma(lines);
   const epsilon = getEpsoilon(lines);
-  console.log("part1: ", parseInt(gamma, 2) * parseInt(epsilon, 2));
+  console.log('part1: ', parseInt(gamma, 2) * parseInt(epsilon, 2));
 };
 
 const getOxygenGenerator = (lines, index = 0) => {
@@ -87,11 +87,11 @@ const getCO2Generator = (lines, index = 0) => {
 };
 
 const part2 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
   const oxygenRating = getOxygenGenerator(lines);
   const CO2Rating = getCO2Generator(lines);
 
-  console.log("part2: ", parseInt(oxygenRating, 2) * parseInt(CO2Rating, 2));
+  console.log('part2: ', parseInt(oxygenRating, 2) * parseInt(CO2Rating, 2));
 };
 
 timeIt(part1);

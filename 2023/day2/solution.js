@@ -1,8 +1,8 @@
-const { readFile, timeIt, sumArray } = require("../../util");
+const { readFile, timeIt, sumArray } = require('../../util');
 
 const parseGameInput = (input) => {
-  const [gameInfo, roundsInfo] = input.split(":");
-  const gameId = gameInfo.split(" ")[1];
+  const [gameInfo, roundsInfo] = input.split(':');
+  const gameId = gameInfo.split(' ')[1];
 
   let results = {
     id: Number(gameId),
@@ -10,12 +10,12 @@ const parseGameInput = (input) => {
     blue: 0,
     green: 0,
   };
-  const rounds = roundsInfo.split(";");
+  const rounds = roundsInfo.split(';');
 
   rounds.forEach((round) => {
-    const cubes = round.split(",");
+    const cubes = round.split(',');
     cubes.forEach((fist) => {
-      const [number, color] = fist.trim().split(" ");
+      const [number, color] = fist.trim().split(' ');
       if (!results[color]) {
         results[color] = Number(number);
       }
@@ -28,7 +28,7 @@ const parseGameInput = (input) => {
 };
 
 const part1 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
   const expected = {
     red: 12,
     green: 13,
@@ -41,18 +41,18 @@ const part1 = () => {
     (game) =>
       game.red <= expected.red &&
       game.blue <= expected.blue &&
-      game.green <= expected.green,
+      game.green <= expected.green
   );
 
   const sumOfIds = filtered.reduce((accumulator, currentObject) => {
     return accumulator + currentObject.id;
   }, 0);
-  console.log("part1: ", sumOfIds);
+  console.log('part1: ', sumOfIds);
 };
 timeIt(part1);
 
 const part2 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
 
   const games = lines
     .map((game) => parseGameInput(game))
@@ -62,6 +62,6 @@ const part2 = () => {
     return Object.values(game).reduce((acc, curr) => acc * curr, 1);
   });
 
-  console.log("part2: ", sumArray(powers));
+  console.log('part2: ', sumArray(powers));
 };
 timeIt(part2);

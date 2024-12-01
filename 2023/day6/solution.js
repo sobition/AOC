@@ -1,7 +1,7 @@
-const { readFile, timeIt } = require("../../util");
+const { readFile, timeIt } = require('../../util');
 const part1 = () => {
-  const [times, dists] = readFile("./input.txt").map((line) =>
-    line.match(/\d+/g).map(Number),
+  const [times, dists] = readFile('./input.txt').map((line) =>
+    line.match(/\d+/g).map(Number)
   );
 
   let sum = 1;
@@ -14,13 +14,13 @@ const part1 = () => {
     const nWays = time - (minTime - 1) * 2 - 1;
     sum *= nWays;
   }
-  console.log("part1: ", sum);
+  console.log('part1: ', sum);
 };
 timeIt(part1);
 
 const part2 = () => {
-  const [times, dists] = readFile("./input.txt").map((line) => [
-    +line.match(/\d+/g).join(""),
+  const [times, dists] = readFile('./input.txt').map((line) => [
+    +line.match(/\d+/g).join(''),
   ]);
 
   let sum = 1;
@@ -33,6 +33,6 @@ const part2 = () => {
     const nWays = time - (minTime - 1) * 2 - 1;
     sum *= nWays;
   }
-  console.log("part2: ", sum);
+  console.log('part2: ', sum);
 };
 timeIt(part2);

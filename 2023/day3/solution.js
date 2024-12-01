@@ -1,6 +1,6 @@
-const { readFile, timeIt, readColumns } = require("../../util");
+const { readFile, timeIt, readColumns } = require('../../util');
 
-const checkNeighbours = (pos, lines, width, height, emptySymbol = ".") => {
+const checkNeighbours = (pos, lines, width, height, emptySymbol = '.') => {
   const { left, right, y } = pos;
   const TOP = y - 1;
   const BOTTOM = y + 1;
@@ -36,7 +36,7 @@ const calculateSum = (lines, height, width) => {
   let sum = 0;
 
   for (let i = 0; i < height; i++) {
-    let num = "";
+    let num = '';
     let pos = { left: null, right: null };
 
     for (let j = 0; j < width; j++) {
@@ -46,16 +46,16 @@ const calculateSum = (lines, height, width) => {
         pos.left ??= j;
         pos.right = j;
       }
-      if (num !== "" && (isNaN(+current) || j === width - 1)) {
+      if (num !== '' && (isNaN(+current) || j === width - 1)) {
         const hasSymbolNeighbour = checkNeighbours(
           { y: i, ...pos },
           lines,
           width,
-          height,
+          height
         );
         sum += hasSymbolNeighbour ? +num : 0;
 
-        num = "";
+        num = '';
         pos = { left: null, right: null };
       }
     }
@@ -65,14 +65,14 @@ const calculateSum = (lines, height, width) => {
 };
 
 const part1 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
   const columns = readColumns(lines);
   const height = columns[0].length;
   const width = lines[0].length;
 
   const sum = calculateSum(lines, height, width);
 
-  console.log("part1: ", sum);
+  console.log('part1: ', sum);
 };
 
 timeIt(part1);
@@ -83,7 +83,7 @@ const findNumbers = (lines) => {
   const numbers = [];
 
   for (let i = 0; i < height; i++) {
-    let num = "";
+    let num = '';
     let x = [];
 
     for (let j = 0; j < width; j++) {
@@ -92,9 +92,9 @@ const findNumbers = (lines) => {
         num += current;
         x.push(j);
       }
-      if (num !== "" && (!Number.isInteger(+current) || j === width - 1)) {
+      if (num !== '' && (!Number.isInteger(+current) || j === width - 1)) {
         numbers.push({ num: +num, y: i, x: x.slice() });
-        num = "";
+        num = '';
         x = [];
       }
     }
@@ -108,8 +108,8 @@ const findGears = (lines, numbers) => {
   const width = lines[0].length;
   let sum = 0;
   lines.forEach((row, i) => {
-    row.split("").forEach((current, j) => {
-      if (current === "*") {
+    row.split('').forEach((current, j) => {
+      if (current === '*') {
         const neighbourNumbers = new Set();
 
         // find all number neighbours
@@ -126,7 +126,7 @@ const findGears = (lines, numbers) => {
               Number.isInteger(+lines[ni][nj])
             ) {
               const neighbourNum = numbers.find(
-                (n) => n.y === ni && n.x.includes(nj),
+                (n) => n.y === ni && n.x.includes(nj)
               );
               neighbourNumbers.add(neighbourNum);
             }
@@ -141,11 +141,11 @@ const findGears = (lines, numbers) => {
     });
   });
 
-  console.log("part2: ", sum);
+  console.log('part2: ', sum);
 };
 
 const part2 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
   const numbers = findNumbers(lines);
   findGears(lines, numbers);
 };

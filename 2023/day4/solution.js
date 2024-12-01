@@ -1,16 +1,16 @@
-const { readFile, timeIt, sumArray } = require("../../util");
+const { readFile, timeIt, sumArray } = require('../../util');
 
 const parseInput = (line) => {
-  const [cardInfo, numbers] = line.split(":");
-  const cardNumber = cardInfo.split(" ")[1];
-  const [winning, owned] = numbers.split("|");
+  const [cardInfo, numbers] = line.split(':');
+  const cardNumber = cardInfo.split(' ')[1];
+  const [winning, owned] = numbers.split('|');
   return {
     cardNumber,
     winning: winning
       .trim()
-      .split(" ")
-      .filter((item) => item !== ""),
-    owned: owned.split(" ").filter((item) => item !== ""),
+      .split(' ')
+      .filter((item) => item !== ''),
+    owned: owned.split(' ').filter((item) => item !== ''),
   };
 };
 
@@ -19,7 +19,7 @@ const findCommonItems = (array1, array2) => {
 };
 
 const part1 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
   const cardsInfo = lines.map((card) => parseInput(card));
   let points = 0;
   cardsInfo.forEach((card) => {
@@ -27,17 +27,17 @@ const part1 = () => {
     if (commonItems.length > 0) {
       points += Math.pow(
         2,
-        findCommonItems(card.winning, card.owned).length - 1,
+        findCommonItems(card.winning, card.owned).length - 1
       );
     }
   });
 
-  console.log("part: ", points);
+  console.log('part: ', points);
 };
 timeIt(part1);
 
 const part2 = () => {
-  const lines = readFile("./input.txt");
+  const lines = readFile('./input.txt');
   const cardsInfo = lines.map((card) => parseInput(card));
   const nCards = lines.map(() => 1);
 
@@ -48,6 +48,6 @@ const part2 = () => {
     }
   });
 
-  console.log("part2: ", sumArray(nCards));
+  console.log('part2: ', sumArray(nCards));
 };
 timeIt(part2);

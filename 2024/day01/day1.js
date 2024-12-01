@@ -1,16 +1,16 @@
-const fs = require("fs");
-const path = require("path");
-const { readFile, readColumns, timeIt } = require("../../util");
+const fs = require('fs');
+const path = require('path');
+const { readFile, readColumns, timeIt } = require('../../util');
 
 // Load input (test or full)
 const loadInput = (fileName) => {
   const filePath = path.join(__dirname, fileName);
-  return fs.readFileSync(filePath, "utf-8");
+  return fs.readFileSync(filePath, 'utf-8');
 };
 
 // Solve Part 1
 const solvePart1 = (input) => {
-  const cols = readColumns(input, "whitespace");
+  const cols = readColumns(input, 'whitespace');
 
   const col1 = cols[0].map(Number).sort((a, b) => a - b);
   const col2 = cols[1].map(Number).sort((a, b) => a - b);
@@ -23,7 +23,7 @@ const solvePart1 = (input) => {
 
 // Solve Part 2
 const solvePart2 = (input) => {
-  const cols = readColumns(input, "whitespace");
+  const cols = readColumns(input, 'whitespace');
 
   const col1 = cols[0];
   const col2 = cols[1];
@@ -41,10 +41,10 @@ const solvePart2 = (input) => {
 // Main execution
 const main = () => {
   // Change `test.txt` to `input.txt` for full input
-  const input = readFile("input.txt");
+  const input = readFile('input.txt');
 
-  console.log("Part 1:", timeIt(solvePart1, input));
-  console.log("Part 2:", timeIt(solvePart2, input));
+  console.log('Part 1:', timeIt(solvePart1, input));
+  console.log('Part 2:', timeIt(solvePart2, input));
 };
 
 main();

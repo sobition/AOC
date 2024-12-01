@@ -1,7 +1,7 @@
-const { readFile, sumArray, timeIt } = require("../../util");
+const { readFile, sumArray, timeIt } = require('../../util');
 
 const part1 = () => {
-  const lines = readFile("./test.txt").map((line) => parseInt(line));
+  const lines = readFile('./test.txt').map((line) => parseInt(line));
   let increments = [];
   for (let i = 0; i < lines.length; i++) {
     if (lines[i] < lines[i + 1]) {
@@ -9,11 +9,11 @@ const part1 = () => {
     }
   }
 
-  console.log("part1: ", increments.length);
+  console.log('part1: ', increments.length);
 };
 
 const part2 = () => {
-  const lines = readFile("./input.txt").map((line) => parseInt(line));
+  const lines = readFile('./input.txt').map((line) => parseInt(line));
   const sumsList = [];
 
   for (let i = 0; i < lines.length; i++) {
@@ -27,7 +27,7 @@ const part2 = () => {
       increments.push(sumsList[i + 1]);
     }
   }
-  console.log("part2: ", increments.length);
+  console.log('part2: ', increments.length);
 };
 timeIt(part1);
 timeIt(part2);
