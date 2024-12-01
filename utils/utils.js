@@ -1,5 +1,10 @@
 const fs = require('fs');
 
+const readFileSplitByEmptyLine = (filePath) => {
+  const allFileContents = fs.readFileSync(filePath, 'utf-8').trimEnd();
+  return allFileContents.split('\n\n');
+};
+
 const readFile = (filePath) => {
   const allFileContents = fs.readFileSync(filePath, 'utf-8');
   return allFileContents.split(/\r?\n/);
@@ -58,6 +63,7 @@ const getCombinations = (arr, length) => {
 };
 
 // String Utilities
+const stringToNumberArray = (str) => str.match(/\d+/g).map(Number);
 const countChar = (str, char) => [...str].filter((c) => c === char).length;
 const isPalindrome = (str) => str === str.split('').reverse().join('');
 
@@ -132,6 +138,7 @@ const timeIt = (func, ...args) => {
 
 module.exports = {
   readFile,
+  readFileSplitByEmptyLine,
   readColumns,
   sumArray,
   timeIt,
@@ -141,6 +148,7 @@ module.exports = {
   range,
   getPermutations,
   getCombinations,
+  stringToNumberArray,
   countChar,
   isPalindrome,
   createGraph,
