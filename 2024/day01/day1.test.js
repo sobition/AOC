@@ -34,7 +34,6 @@ describe('Solution Tests', () => {
   describe('solvePart2', () => {
     test('calculates total count correctly', () => {
       const input = readFile('test.txt');
-      console.log(input);
       const result = solvePart2(input);
       expect(result).toBe(31);
     });
