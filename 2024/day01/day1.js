@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { readFile, readColumns } = require("../../util");
+const { readFile, readColumns, timeIt } = require("../../util");
 
 // Load input (test or full)
 const loadInput = (fileName) => {
@@ -43,8 +43,8 @@ const main = () => {
   // Change `test.txt` to `input.txt` for full input
   const input = readFile("input.txt");
 
-  console.log("Part 1:", solvePart1(input));
-  console.log("Part 2:", solvePart2(input));
+  console.log("Part 1:", timeIt(solvePart1, input));
+  console.log("Part 2:", timeIt(solvePart2, input));
 };
 
 main();

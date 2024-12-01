@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Usage: ./generate.sh <year> <day>
@@ -19,9 +18,7 @@ mkdir -p "$YEAR/$DAY_DIR"
 
 # Create files
 cat <<EOL > "$YEAR/$DAY_DIR/day$DAY.js"
-const fs = require('fs');
-const path = require('path');
-const { parseInput } = require('../../utils/utils');
+const { readFile, readColumns, timeIt } = require("../../util");
 
 // Load input (test or full)
 const loadInput = (fileName) => {
@@ -47,8 +44,8 @@ const main = () => {
   const rawInput = loadInput('test.txt');
   const input = parseInput(rawInput);
 
-  console.log('Part 1:', solvePart1(input));
-  console.log('Part 2:', solvePart2(input));
+  console.log('Part 1:', timeIt(solvePart1, input));
+  console.log('Part 2:', timeIt(solvePart2, input));
 };
 
 main();
@@ -61,3 +58,4 @@ echo "Created $YEAR/$DAY_DIR with files:"
 echo " - day$DAY.js"
 echo " - test.txt"
 echo " - input.txt"
+
