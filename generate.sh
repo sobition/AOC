@@ -38,7 +38,7 @@ const main = () => {
   const input = readFile("test.txt");
 
   console.log('Part 1:', timeIt(solvePart1, input));
-  console.log('Part 2:', timeIt(solvePart2, input));
+  // console.log('Part 2:', timeIt(solvePart2, input));
 };
 
 if (require.main === module) {
@@ -50,16 +50,14 @@ EOL
 
 # Create test file
 cat <<EOL > "$YEAR/$DAY_DIR/day$DAY.test.js"
+const path = require("path");
 const { solvePart1, solvePart2 } = require("./day$DAY");
 const { readFile } = require("../../utils/utils");
 
+const input = readFile(path.resolve(__dirname, 'test.txt'));
+
 describe("Day $DAY Solutions", () => {
   let input;
-
-  beforeAll(() => {
-    // Read test input file
-    input = readFile("test.txt");
-  });
 
   test("solvePart1 should return the expected output for Part 1", () => {
     const result = solvePart1(input);

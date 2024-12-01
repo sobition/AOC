@@ -8,5 +8,8 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "prettier": "^3.4.1"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
   }
 }
