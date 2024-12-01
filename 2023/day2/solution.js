@@ -1,4 +1,4 @@
-const { readFile, timeIt, sumArray } = require('../../util');
+const { readFile, timeIt, sumArray } = require('../../utils/utils');
 
 const parseGameInput = (input) => {
   const [gameInfo, roundsInfo] = input.split(':');

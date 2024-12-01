@@ -1,4 +1,4 @@
-const { readFile, timeIt, sumArray } = require('../../util');
+const { readFile, timeIt, sumArray } = require('../../utils/utils');
 
 const parseInput = (line) => {
   const [cardInfo, numbers] = line.split(':');

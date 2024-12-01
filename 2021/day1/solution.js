@@ -1,4 +1,4 @@
-const { readFile, sumArray, timeIt } = require('../../util');
+const { readFile, sumArray, timeIt } = require('../../utils/utils');
 
 const part1 = () => {
   const lines = readFile('./test.txt').map((line) => parseInt(line));

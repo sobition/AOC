@@ -1,12 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-const { readFile, readColumns, timeIt } = require('../../util');
-
-// Load input (test or full)
-const loadInput = (fileName) => {
-  const filePath = path.join(__dirname, fileName);
-  return fs.readFileSync(filePath, 'utf-8');
-};
+const { readFile, readColumns, timeIt } = require('../../utils/utils');
 
 // Solve Part 1
 const solvePart1 = (input) => {

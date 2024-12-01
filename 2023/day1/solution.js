@@ -1,4 +1,4 @@
-const { readFile, timeIt, sumArray } = require('../../util');
+const { readFile, timeIt, sumArray } = require('../../utils/utils');
 const part1 = () => {
   const lines = readFile('./input.txt');
   const tuples = lines.map((line) => {

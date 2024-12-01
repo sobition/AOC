@@ -1,9 +1,12 @@
 {
   "scripts": {
     "format": "prettier --write .",
-    "format-check": "prettier --check ."
+    "format-check": "prettier --check .",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "prettier": "^3.4.1"
   }
 }

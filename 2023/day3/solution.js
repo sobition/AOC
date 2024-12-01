@@ -1,4 +1,4 @@
-const { readFile, timeIt, readColumns } = require('../../util');
+const { readFile, timeIt, readColumns } = require('../../utils/utils');
 
 const checkNeighbours = (pos, lines, width, height, emptySymbol = '.') => {
   const { left, right, y } = pos;

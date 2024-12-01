@@ -18,7 +18,7 @@ mkdir -p "$YEAR/$DAY_DIR"
 
 # Create files
 cat <<EOL > "$YEAR/$DAY_DIR/day$DAY.js"
-const { readFile, timeIt } = require("../../util");
+const { readFile, timeIt } = require("../../utils/utils");
 
 // Solve Part 1
 const solvePart1 = (input) => {

@@ -1,4 +1,4 @@
-const { readFile, readColumns, timeIt } = require('../../util');
+const { readFile, readColumns, timeIt } = require('../../utils/utils');
 
 function findMostFrequentItem(arr) {
   const frequencyMap = arr.reduce((acc, item) => {

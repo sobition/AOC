@@ -1,4 +1,4 @@
-const { readFile, timeIt } = require('../../util');
+const { readFile, timeIt } = require('../../utils/utils');
 const part1 = () => {
   const [times, dists] = readFile('./input.txt').map((line) =>
     line.match(/\d+/g).map(Number)

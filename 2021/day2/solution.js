@@ -1,5 +1,5 @@
-const readFile = require('../../util').readFile;
-const timeIt = require('../../util').timeIt;
+const readFile = require('../../utils/utils').readFile;
+const timeIt = require('../../utils/utils').timeIt;
 
 const part1 = () => {
   const lines = readFile('./input.txt');
