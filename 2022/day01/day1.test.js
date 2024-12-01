@@ -42,7 +42,6 @@ describe('Max Calories Solutions', () => {
   describe('solvePart2', () => {
     test('returns the sum of the top three maximum calories carried by backpackers', () => {
       const input = readFile('test.txt');
-      console.log('iwwwnput:', input);
       const result = solvePart2(input);
       expect(result).toBe(45000);
     });

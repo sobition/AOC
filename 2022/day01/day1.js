@@ -26,7 +26,6 @@ const solvePart1 = (input) => {
 const solvePart2 = (input) => {
   // Write logic for Part 2 here
   const sums = maxCalories(input);
-  console.log('sums:', sums);
   return sumArray(sums.slice(0, 3));
 };
 
