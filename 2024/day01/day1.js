@@ -44,7 +44,9 @@ const main = () => {
   const input = readFile('input.txt');
 
   console.log('Part 1:', timeIt(solvePart1, input));
+  //Part 1: 1651298
   console.log('Part 2:', timeIt(solvePart2, input));
+  // Part 2: 21306195
 };
 
 main();
