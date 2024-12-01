@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const readFile = (filePath) => {
   const allFileContents = fs.readFileSync(filePath, 'utf-8');
-  return allFileContents.split(/\r?\n/).filter((line) => line);
+  return allFileContents.split(/\r?\n/);
 };
 
 const readColumns = (array, splitBy = 'char') => {

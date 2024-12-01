@@ -8,7 +8,7 @@
 [![SLOC](https://img.shields.io/tokei/lines/github/sobition/AOC?logo=codefactor&logoColor=lightgrey)](#)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/sobition/AOC/master)](#)
 
-My solutions to puzzles at [adventofcode.com](https://adventofcode.com/).
+My solutions to puzzles at [adventofcode.com](https://adventofcode.com/2024).
 
 ```perl
                                       `}-'       `}-'

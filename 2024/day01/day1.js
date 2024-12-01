@@ -33,7 +33,7 @@ const solvePart2 = (input) => {
 // Main execution
 const main = (filePath = 'input.txt') => {
   // Change `test.txt` to `input.txt` for full input
-  const input = readFile(filePath);
+  const input = readFile(filePath).filter((line) => line);
 
   console.log('Part 1:', timeIt(solvePart1, input));
   //Part 1: 1651298
