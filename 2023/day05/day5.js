@@ -25,6 +25,7 @@ const solvePart1 = (input) => {
     }
   }
 
+  console.log('seeds', seeds);
   return Math.min(...seeds);
 };
 
@@ -72,8 +73,8 @@ const solvePart2 = (input) => {
 const main = () => {
   // Change `test.txt` to `input.txt` for full input
 
-  const input = readFileSplitByEmptyLine('input.txt');
-  // console.log('Part 1:', timeIt(solvePart1, input));
+  const input = readFileSplitByEmptyLine('test.txt');
+  console.log('Part 1:', timeIt(solvePart1, input));
   console.log('Part 2:', timeIt(solvePart2, input));
 };
 
