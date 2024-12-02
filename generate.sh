@@ -57,7 +57,6 @@ const { readFile } = require("../../utils/utils");
 const input = readFile(path.resolve(__dirname, 'test.txt'));
 
 describe("Day $DAY Solutions", () => {
-  let input;
 
   test("solvePart1 should return the expected output for Part 1", () => {
     const result = solvePart1(input);

@@ -6,7 +6,7 @@ const readFileSplitByEmptyLine = (filePath) => {
 };
 
 const readFile = (filePath) => {
-  const allFileContents = fs.readFileSync(filePath, 'utf-8');
+  const allFileContents = fs.readFileSync(filePath, 'utf-8').trimEnd();
   return allFileContents.split(/\r?\n/);
 };
 
