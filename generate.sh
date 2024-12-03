@@ -23,6 +23,7 @@ const { readFile, timeIt } = require("../../utils/utils");
 // Solve Part 1
 const solvePart1 = (input) => {
   // Write logic for Part 1 here
+  console.log(input);
   return 'Solution for Part 1';
 };
 
@@ -73,6 +74,8 @@ EOL
 # Create empty test.txt and input.txt files
 touch "$YEAR/$DAY_DIR/test.txt"
 touch "$YEAR/$DAY_DIR/input.txt"
+
+cd "$YEAR/$DAY_DIR"
 
 # Output created structure
 echo "Created $YEAR/$DAY_DIR with files:"
