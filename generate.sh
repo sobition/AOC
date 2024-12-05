@@ -20,16 +20,12 @@ mkdir -p "$YEAR/$DAY_DIR"
 cat <<EOL > "$YEAR/$DAY_DIR/day$DAY.js"
 const { readFile, timeIt } = require("../../utils/utils");
 
-// Solve Part 1
 const solvePart1 = (input) => {
-  // Write logic for Part 1 here
   console.log(input);
   return 'Solution for Part 1';
 };
 
-// Solve Part 2
 const solvePart2 = (input) => {
-  // Write logic for Part 2 here
   return 'Solution for Part 2';
 };
 
@@ -61,12 +57,12 @@ describe("Day $DAY Solutions", () => {
 
   test("solvePart1 should return the expected output for Part 1", () => {
     const result = solvePart1(input);
-    expect(result).toBe('Expected Part 1 Result'); // Replace with actual expected result
+    expect(result).toBe('Expected Part 1 Result'); 
   });
 
   test("solvePart2 should return the expected output for Part 2", () => {
     const result = solvePart2(input);
-    expect(result).toBe('Expected Part 2 Result'); // Replace with actual expected result
+    expect(result).toBe('Expected Part 2 Result'); 
   });
 });
 EOL
@@ -74,8 +70,6 @@ EOL
 # Create empty test.txt and input.txt files
 touch "$YEAR/$DAY_DIR/test.txt"
 touch "$YEAR/$DAY_DIR/input.txt"
-
-cd "$YEAR/$DAY_DIR"
 
 # Output created structure
 echo "Created $YEAR/$DAY_DIR with files:"
