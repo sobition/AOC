@@ -62,6 +62,9 @@ const getCombinations = (arr, length) => {
   );
 };
 
+const isInBounds = (rows, cols, x, y) =>
+  x >= 0 && x < rows && y >= 0 && y < cols;
+
 // String Utilities
 const stringToNumberArray = (str) => str.match(/\d+/g).map(Number);
 const countChar = (str, char) => [...str].filter((c) => c === char).length;
@@ -145,6 +148,7 @@ module.exports = {
   parseInput,
   parseNumbers,
   parseCommaSeparatedNumbers,
+  isInBounds,
   range,
   getPermutations,
   getCombinations,
