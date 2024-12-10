@@ -6,28 +6,23 @@ const {
   isInBounds,
 } = require('../../utils/utils');
 
-function calculateTrailheadScores(grid) {
-  const rows = grid.length;
-  const cols = grid[0].length;
-  const directions = [
-    [0, 1], // Right
-    [0, -1], // Left
-    [1, 0], // Down
-    [-1, 0], // Up
-  ];
-  const trailheadScores = {};
+const directions = [
+  [0, 1],
+  [0, -1],
+  [1, 0],
+  [-1, 0],
+];
 
-  // Helper function to validate a trail
-  function isValidTrail(x, y, currentValue) {
-    if (!isInBounds(rows, cols, x, y)) {
-      return false; // Out of bounds or already visited
-    }
-    return parseInt(grid[x][y], 10) === currentValue;
+function isValidTrail(grid, rows, cols, x, y, currentValue) {
+  if (!isInBounds(rows, cols, x, y)) {
+    return false;
   }
+  return parseInt(grid[x][y], 10) === currentValue;
+}
 
-  // DFS function to count full paths to 9s
-  function dfs(x, y, value, visited9) {
-    if (value === 9) {
+function findTrails(grid, rows, cols, x, y, value, visited9 = null) {
+  if (value === 9) {
+    if (visited9 !== null) {
       const key = `${x},${y}`;
       if (!visited9.has(key)) {
         visited9.add(key); // Mark this path to this 9 as distinct
@@ -35,104 +30,74 @@ function calculateTrailheadScores(grid) {
       }
       return 0; // Already visited this 9 via a different path
     }
-
-    grid[x][y] = null; // Mark as visited
-    let count = 0;
-
-    for (const [dx, dy] of directions) {
-      const nx = x + dx;
-      const ny = y + dy;
-      if (isValidTrail(nx, ny, value + 1)) {
-        count += dfs(nx, ny, value + 1, visited9);
-      }
-    }
-
-    grid[x][y] = value; // Restore the value after DFS
-    return count;
+    return 1; // If not tracking unique paths, simply count this path
   }
 
-  // Main logic to calculate scores for each trailhead
+  grid[x][y] = null; // Mark as visited
+  let count = 0;
+
+  for (const [dx, dy] of directions) {
+    const nx = x + dx;
+    const ny = y + dy;
+    if (isValidTrail(grid, rows, cols, nx, ny, value + 1)) {
+      count += findTrails(grid, rows, cols, nx, ny, value + 1, visited9);
+    }
+  }
+
+  grid[x][y] = value; // Restore the value after DFS
+  return count;
+}
+
+function calculateTrailheadScores(grid) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const trailheadScores = {};
+
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       if (grid[i][j] === '0') {
-        const visited9 = new Set(); // Track unique 9s reachable
-        const gridClone = grid.map((row) => [...row]); // Clone the grid
-        const score = dfs(i, j, 0, visited9); // Start DFS
+        const visited9 = new Set();
+        const gridClone = grid.map((row) => [...row]);
+        const score = findTrails(gridClone, rows, cols, i, j, 0, visited9);
         trailheadScores[`${i},${j}`] = score;
-        grid = gridClone; // Restore the grid for the next trailhead
       }
     }
   }
 
   return trailheadScores;
 }
+
 const solvePart1 = (input) => {
   const grid = readColumns(input, 'char');
   const trailheads = calculateTrailheadScores(grid);
   const sum = sumArray(Object.values(trailheads));
 
-  console.log(sum);
-  return 'Solution for Part 1';
+  return sum;
 };
 
-function countTrailheads(grid) {
+function countTrailheadRating(grid) {
   const rows = grid.length;
   const cols = grid[0].length;
-  const directions = [
-    [0, 1], // Right
-    [0, -1], // Left
-    [1, 0], // Down
-    [-1, 0], // Up
-  ];
-  const trailheadCounts = {};
+  const trailheadRatings = {};
 
-  // Helper function to validate a trail
-  function isValidTrail(x, y, currentValue) {
-    if (x < 0 || x >= rows || y < 0 || y >= cols || grid[x][y] === null) {
-      return false; // Out of bounds or already visited
-    }
-    return parseInt(grid[x][y], 10) === currentValue;
-  }
-
-  // DFS function to explore all unique trails
-  function dfs(x, y, value) {
-    if (value === 9) return 1; // Reached the end of the trail
-    grid[x][y] = null; // Mark as visited
-    let count = 0;
-
-    for (const [dx, dy] of directions) {
-      const nx = x + dx;
-      const ny = y + dy;
-      if (isValidTrail(nx, ny, value + 1)) {
-        count += dfs(nx, ny, value + 1);
-      }
-    }
-
-    grid[x][y] = value; // Restore the value after DFS
-    return count;
-  }
-
-  // Main logic to count trails for each '0'
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       if (grid[i][j] === '0') {
-        const gridClone = grid.map((row) => [...row]); // Clone the grid
-        const trails = dfs(i, j, 0); // Start from the current '0'
-        trailheadCounts[`${i},${j}`] = trails;
-        grid = gridClone; // Restore the grid
+        const gridClone = grid.map((row) => [...row]);
+        const trails = findTrails(gridClone, rows, cols, i, j, 0);
+        trailheadRatings[`${i},${j}`] = trails;
       }
     }
   }
 
-  return trailheadCounts;
+  return trailheadRatings;
 }
 
 const solvePart2 = (input) => {
   const grid = readColumns(input, 'char');
-  const trailheads = countTrailheads(grid);
-  const sum = sumArray(Object.values(trailheads));
-  console.log(sum);
-  return 'Solution for Part 2';
+  const trailheadRatings = countTrailheadRating(grid);
+  const sum = sumArray(Object.values(trailheadRatings));
+  return sum;
 };
 
 // Main execution
