@@ -75,7 +75,63 @@ const solvePart1 = (input) => {
   return 'Solution for Part 1';
 };
 
+function countTrailheads(grid) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const directions = [
+    [0, 1], // Right
+    [0, -1], // Left
+    [1, 0], // Down
+    [-1, 0], // Up
+  ];
+  const trailheadCounts = {};
+
+  // Helper function to validate a trail
+  function isValidTrail(x, y, currentValue) {
+    if (x < 0 || x >= rows || y < 0 || y >= cols || grid[x][y] === null) {
+      return false; // Out of bounds or already visited
+    }
+    return parseInt(grid[x][y], 10) === currentValue;
+  }
+
+  // DFS function to explore all unique trails
+  function dfs(x, y, value) {
+    if (value === 9) return 1; // Reached the end of the trail
+    grid[x][y] = null; // Mark as visited
+    let count = 0;
+
+    for (const [dx, dy] of directions) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (isValidTrail(nx, ny, value + 1)) {
+        count += dfs(nx, ny, value + 1);
+      }
+    }
+
+    grid[x][y] = value; // Restore the value after DFS
+    return count;
+  }
+
+  // Main logic to count trails for each '0'
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (grid[i][j] === '0') {
+        const gridClone = grid.map((row) => [...row]); // Clone the grid
+        const trails = dfs(i, j, 0); // Start from the current '0'
+        trailheadCounts[`${i},${j}`] = trails;
+        grid = gridClone; // Restore the grid
+      }
+    }
+  }
+
+  return trailheadCounts;
+}
+
 const solvePart2 = (input) => {
+  const grid = readColumns(input, 'char');
+  const trailheads = countTrailheads(grid);
+  const sum = sumArray(Object.values(trailheads));
+  console.log(sum);
   return 'Solution for Part 2';
 };
 
@@ -85,7 +141,7 @@ const main = () => {
   const input = readFile('input.txt');
 
   console.log('Part 1:', timeIt(solvePart1, input));
-  // console.log('Part 2:', timeIt(solvePart2, input));
+  console.log('Part 2:', timeIt(solvePart2, input));
 };
 
 if (require.main === module) {
