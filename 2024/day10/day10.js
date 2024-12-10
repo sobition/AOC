@@ -66,6 +66,7 @@ function calculateTrailheadScores(grid) {
 
   return trailheadScores;
 }
+
 const solvePart1 = (input) => {
   const grid = readColumns(input, 'char');
   const trailheads = calculateTrailheadScores(grid);
