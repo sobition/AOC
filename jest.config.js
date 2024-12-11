@@ -4,4 +4,5 @@ module.exports = {
   collectCoverage: true, // Enable code coverage
   collectCoverageFrom: ['**/*.js', '!**/node_modules/**', '!**/__tests__/**'], // Exclude node_modules and test files
   automock: false, // Disable automatic mocking
+  testMatch: ['**/?(*.)+(spec|test).[tj]s?(x)'],
 };
