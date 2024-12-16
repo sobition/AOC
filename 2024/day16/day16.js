@@ -1,29 +1,35 @@
 const { readFile, timeIt } = require('../../utils/utils');
 
+const dirs = [
+  [0, -1],
+  [1, 0],
+  [0, 1],
+  [-1, 0],
+];
+
+function findStartAndEnd(grid) {
+  let start = null,
+    end = null;
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid[row].length; col++) {
+      if (grid[row][col] === 'S') start = { x: row, y: col };
+      if (grid[row][col] === 'E') end = { x: row, y: col };
+    }
+  }
+  return { start, end };
+}
+
 function findShortestPath(grid) {
   const directions = [
-    { dx: 0, dy: 1, facing: 'right' }, // Move right
-    { dx: 1, dy: 0, facing: 'down' }, // Move down
-    { dx: 0, dy: -1, facing: 'left' }, // Move left
-    { dx: -1, dy: 0, facing: 'up' }, // Move up
+    { dx: 0, dy: 1, facing: 'right' },
+    { dx: 1, dy: 0, facing: 'down' },
+    { dx: 0, dy: -1, facing: 'left' },
+    { dx: -1, dy: 0, facing: 'up' },
   ];
 
-  function findStartAndEnd() {
-    let start = null,
-      end = null;
-    for (let row = 0; row < grid.length; row++) {
-      for (let col = 0; col < grid[row].length; col++) {
-        if (grid[row][col] === 'S') start = { x: row, y: col };
-        if (grid[row][col] === 'E') end = { x: row, y: col };
-      }
-    }
-    return { start, end };
-  }
+  const { start, end } = findStartAndEnd(grid);
+  if (!start || !end) return -1; // No start or end
 
-  const { start, end } = findStartAndEnd();
-  if (!start || !end) return { score: -1, turns: 0, straightSteps: 0 }; // No start or end
-
-  // Heuristic: Manhattan distance to the goal
   const heuristic = (x, y) => Math.abs(x - end.x) + Math.abs(y - end.y);
 
   const priorityQueue = [
@@ -32,30 +38,23 @@ function findShortestPath(grid) {
       y: start.y,
       facing: 'right',
       score: 0,
-      turns: 0,
-      straightSteps: 0,
       estimatedCost: heuristic(start.x, start.y),
-      path: [],
     },
   ];
 
-  const visited = new Map(); // Track the best score for each state
-
+  const visited = new Map();
   const hashState = (x, y, facing) => `${x},${y},${facing}`;
 
   while (priorityQueue.length > 0) {
-    // Sort the queue by estimated cost (A* optimization)
     priorityQueue.sort((a, b) => a.estimatedCost - b.estimatedCost);
     const current = priorityQueue.shift();
 
-    const { x, y, facing, score, turns, straightSteps, path } = current;
+    const { x, y, facing, score } = current;
 
-    // If we reach the end, return the result
     if (x === end.x && y === end.y) {
-      return { score, turns, straightSteps, path };
+      return score;
     }
 
-    // Skip if we've visited this state with a better score
     const stateHash = hashState(x, y, facing);
     if (visited.has(stateHash) && visited.get(stateHash) <= score) continue;
 
@@ -66,7 +65,6 @@ function findShortestPath(grid) {
       const newX = x + dx;
       const newY = y + dy;
 
-      // Ignore out-of-bounds or invalid moves (walls)
       if (
         newX < 0 ||
         newY < 0 ||
@@ -77,54 +75,80 @@ function findShortestPath(grid) {
         continue;
       }
 
-      // Calculate the new score, turns, and straight steps
-      const turnCost = facing === newFacing ? 0 : 1000; // Turning costs 1000
-      const stepCost = 1; // Moving forward costs 1
+      const turnCost = facing === newFacing ? 0 : 1000;
+      const stepCost = 1;
       const newScore = score + turnCost + stepCost;
-      const newTurns = turns + (facing === newFacing ? 0 : 1);
-      const newStraightSteps = straightSteps + (facing === newFacing ? 1 : 0);
-      const newPath = [
-        ...path,
-        facing === newFacing
-          ? `Step to (${newX}, ${newY})`
-          : `Turn to ${newFacing}, then step to (${newX}, ${newY})`,
-      ];
 
-      // Add to the queue with updated cost
       priorityQueue.push({
         x: newX,
         y: newY,
         facing: newFacing,
         score: newScore,
-        turns: newTurns,
-        straightSteps: newStraightSteps,
         estimatedCost: newScore + heuristic(newX, newY),
-        path: newPath,
       });
     }
   }
 
-  return { score: -1, turns: 0, straightSteps: 0 }; // No valid path
+  return -1; // No valid path
 }
 
 const solvePart1 = (input) => {
   const grid = input.map((row) => row.split(''));
   const score = findShortestPath(grid);
-  console.log(score);
-  return 'Solution for Part 1';
+  return score;
 };
+
+function getKey(c, dir) {
+  return `${c.x},${c.y},${dir}`;
+}
+
+function getPaths(grid, lowestScore) {
+  const { start, end } = findStartAndEnd(grid);
+  const queue = [[start.x, start.y, 1, 0, [start]]];
+  const visited = new Map();
+  const paths = [];
+
+  while (queue.length) {
+    const [x, y, dir, score, path] = queue.shift();
+    const key = getKey({ x, y }, dir);
+
+    if (score > lowestScore) continue;
+    if (visited.has(key) && visited.get(key) < score) continue;
+    visited.set(key, score);
+
+    if (x === end.x && y === end.y && score === lowestScore) {
+      paths.push(path);
+      continue;
+    }
+
+    const nx = x + dirs[dir][0];
+    const ny = y + dirs[dir][1];
+    if (grid[ny]?.[nx] !== '#') {
+      queue.push([nx, ny, dir, score + 1, [...path, { x: nx, y: ny }]]);
+    }
+
+    queue.push([x, y, (dir + 1) % 4, score + 1000, [...path]]);
+    queue.push([x, y, (dir + 3) % 4, score + 1000, [...path]]);
+  }
+
+  return paths;
+}
 
 const solvePart2 = (input) => {
-  return 'Solution for Part 2';
+  const grid = input.map((row) => row.split(''));
+  const score = findShortestPath(grid);
+  const paths = getPaths(grid, score);
+  const uniquePaths = new Set();
+  paths.forEach((path) => {
+    path.forEach((p) => uniquePaths.add(getKey(p, 0)));
+  });
+  return uniquePaths.size;
 };
 
-// Main execution
 const main = () => {
-  // Change `test.txt` to `input.txt` for full input
   const input = readFile('input.txt');
-
   console.log('Part 1:', timeIt(solvePart1, input));
-  // console.log('Part 2:', timeIt(solvePart2, input));
+  console.log('Part 2:', timeIt(solvePart2, input));
 };
 
 if (require.main === module) {
