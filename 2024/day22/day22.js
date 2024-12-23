@@ -1,51 +1,43 @@
 const { readFile, timeIt } = require('../../utils/utils');
 
 const nextNumber = (secretNumber) => {
-  secretNumber = (secretNumber ^ (secretNumber << 6)) & 0xffffff;
-  secretNumber = (secretNumber ^ (secretNumber >> 5)) & 0xffffff;
-  secretNumber = (secretNumber ^ (secretNumber << 11)) & 0xffffff;
+  const mask = 0xffffff;
+  secretNumber = (secretNumber ^ (secretNumber << 6)) & mask;
+  secretNumber = (secretNumber ^ (secretNumber >> 5)) & mask;
+  secretNumber = (secretNumber ^ (secretNumber << 11)) & mask;
   return secretNumber;
 };
 
-const solvePart1 = (input) => {
-  const startPrices = input.filter((line) => line != '').map(Number);
-  return startPrices
-    .map((secretNumber) => {
-      for (let i = 0; i < 2000; i++) {
-        secretNumber = nextNumber(secretNumber);
-      }
-      return secretNumber;
-    })
-    .reduce((lhs, rhs) => lhs + rhs);
+const parseInput = (input) =>
+  input.filter((line) => line.trim() !== '').map(Number);
+
+const iterateNextNumber = (number, count) => {
+  for (let i = 0; i < count; i++) {
+    number = nextNumber(number);
+  }
+  return number;
 };
 
-function* pairwise(iterable) {
-  const iterator = iterable[Symbol.iterator]();
-  let a = iterator.next();
-  if (a.done) {
-    return;
-  }
-  let b = iterator.next();
-  while (!b.done) {
-    yield [a.value, b.value];
-    a = b;
-    b = iterator.next();
-  }
-}
+const solvePart1 = (input) => {
+  const startPrices = parseInput(input);
+  return startPrices
+    .map((secretNumber) => iterateNextNumber(secretNumber, 2000))
+    .reduce((sum, num) => sum + num, 0);
+};
 
 const solvePart2 = (input) => {
-  console.log('input', input);
+  const prices = parseInput(input);
   const ranges = new Map();
-  const prices = input.filter((line) => line != '').map(Number);
 
   prices.forEach((secretNumber) => {
     const visited = new Set();
     const differences = [];
+    let currentSecretNumber = secretNumber;
 
     for (let i = 0; i < 2000; i++) {
-      const nextSecretNumber = nextNumber(secretNumber);
-      differences.push(Number((nextSecretNumber % 10) - (secretNumber % 10)));
-      secretNumber = nextSecretNumber;
+      const nextSecretNumber = nextNumber(currentSecretNumber);
+      differences.push((nextSecretNumber % 10) - (currentSecretNumber % 10));
+      currentSecretNumber = nextSecretNumber;
 
       if (differences.length === 4) {
         const key = differences.join(',');
@@ -54,24 +46,25 @@ const solvePart2 = (input) => {
           ranges.get(key).push(nextSecretNumber % 10);
           visited.add(key);
         }
-        differences.shift();
+        differences.shift(); // Maintain sliding window
       }
     }
   });
 
   return Math.max(
     ...Array.from(ranges.values()).map((range) =>
-      range.reduce((lhs, rhs) => lhs + rhs)
+      range.reduce((sum, num) => sum + num, 0)
     )
   );
 };
 
-// Main execution
+// Main execution function
 const main = () => {
-  // Change `test.txt` to `input.txt` for full input
   const input = readFile('input.txt');
 
-  // console.log('Part 1:', timeIt(solvePart1, input));
+  // Uncomment for Part 1
+  console.log('Part 1:', timeIt(solvePart1, input));
+
   console.log('Part 2:', timeIt(solvePart2, input));
 };
 
