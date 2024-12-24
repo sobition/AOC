@@ -48,3 +48,4 @@ My solutions to puzzles at [adventofcode.com](https://adventofcode.com/2024).
 | [Day 21](https://adventofcode.com/2024/day/21) |   ⭐   |   ⭐   |
 | [Day 22](https://adventofcode.com/2024/day/22) |   ⭐   |   ⭐   |
 | [Day 23](https://adventofcode.com/2024/day/23) |   ⭐   |   ⭐   |
+| [Day 24](https://adventofcode.com/2024/day/24) |   ⭐   |   ⭐   |
